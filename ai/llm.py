@@ -1,28 +1,33 @@
-# ==========================================================
-# LLM Connection
-# ==========================================================
-
-# Import Ollama chat function
+import time
 
 from ollama import chat
 
-# Import model name from config
-from config import LLM_MODEL
-
-
+from config import LLM_MODEL, LLM_OPTIONS
 
 
 def generate_response(messages):
-    """
-    Send messages to the LLM and return the AI response.
-    """
 
-    response=chat(
-        # Model to use
-        model=LLM_MODEL,
+    retries = 3
 
-         # Conversation messages
-        messages=messages,
-        format="json"
-    )
-    return response["message"]["content"]
+    for attempt in range(retries):
+
+        try:
+
+            response = chat(
+                model=LLM_MODEL,
+                messages=messages,
+                format="json",
+                options=LLM_OPTIONS,
+            )
+
+            return response["message"]["content"]
+
+        except Exception as e:
+
+            if attempt == retries - 1:
+                raise
+
+            print(f"[!] Ollama Error: {e}")
+            print("[*] Retrying...\n")
+
+            time.sleep(2)

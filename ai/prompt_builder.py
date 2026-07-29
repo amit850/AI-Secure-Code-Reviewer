@@ -1,8 +1,5 @@
-# ==========================================================
-# Prompt Builder
-# ==========================================================
-
 from ai.prompts import SYSTEM_PROMPT
+from config import MAX_CODE_LENGTH
 
 
 def build_messages(filename: str, code: str) -> list:
@@ -10,21 +7,10 @@ def build_messages(filename: str, code: str) -> list:
     Build messages for the LLM.
     """
 
-    return [
-        {
-            "role": "system",
-            "content": SYSTEM_PROMPT
-        },
-        {
-            "role": "user",
-            "content": f"""
-Review the following source code.
+    code = code[:MAX_CODE_LENGTH]
 
-Return ONLY valid JSON.
-
-Do not omit any field.
-
-If a field is unknown, return "Unknown".
+    user_prompt = f"""
+Review this source code.
 
 Filename:
 {filename}
@@ -32,5 +18,14 @@ Filename:
 Source Code:
 {code}
 """
-        }
+
+    return [
+        {
+            "role": "system",
+            "content": SYSTEM_PROMPT,
+        },
+        {
+            "role": "user",
+            "content": user_prompt,
+        },
     ]

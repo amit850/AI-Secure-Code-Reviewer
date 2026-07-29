@@ -21,7 +21,12 @@ def review_code(filename: str, code: str):
     # Get AI response
     response = generate_response(messages)
 
-
+    # TEMP DEBUG
+    print("\n" + "=" * 80)
+    print("RAW LLM RESPONSE")
+    print("=" * 80)
+    print(response)
+    print("=" * 80 + "\n")
 
     # Parse + Normalize + Validate
     return parse_review(response)

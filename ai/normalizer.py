@@ -5,6 +5,10 @@
 from copy import deepcopy
 
 
+# ----------------------------------------------------------
+# Default Finding Template
+# ----------------------------------------------------------
+
 FINDING_TEMPLATE = {
     "title": "Unknown",
     "severity": "Unknown",
@@ -22,8 +26,70 @@ FINDING_TEMPLATE = {
 
 def normalize_response(data: dict) -> dict:
     """
-    Normalize LLM response into the expected schema.
+    Normalize the LLM response into the expected schema.
+
+    This function:
+    1. Fixes malformed summary returned by the LLM.
+    2. Normalizes finding fields.
+    3. Returns data compatible with Pydantic models.
     """
+
+    # ------------------------------------------------------
+    # Fix summary if model returns a string instead of object
+    # ------------------------------------------------------
+
+    if isinstance(data.get("summary"), str):
+
+        findings_list = data.get("findings", [])
+
+        summary = {
+            "total_findings": len(findings_list),
+            "critical": 0,
+            "high": 0,
+            "medium": 0,
+            "low": 0,
+            "info": 0,
+        }
+
+        for finding in findings_list:
+
+            severity = finding.get("severity", "").lower()
+
+            if severity == "critical":
+                summary["critical"] += 1
+
+            elif severity == "high":
+                summary["high"] += 1
+
+            elif severity == "medium":
+                summary["medium"] += 1
+
+            elif severity == "low":
+                summary["low"] += 1
+
+            elif severity == "info":
+                summary["info"] += 1
+
+        data["summary"] = summary
+
+    # ------------------------------------------------------
+    # If summary is missing completely
+    # ------------------------------------------------------
+
+    elif "summary" not in data:
+
+        data["summary"] = {
+            "total_findings": 0,
+            "critical": 0,
+            "high": 0,
+            "medium": 0,
+            "low": 0,
+            "info": 0,
+        }
+
+    # ------------------------------------------------------
+    # Normalize findings
+    # ------------------------------------------------------
 
     findings = []
 
@@ -31,7 +97,6 @@ def normalize_response(data: dict) -> dict:
 
         finding = deepcopy(FINDING_TEMPLATE)
 
-        # Different models may use different keys
         finding["title"] = (
             item.get("title")
             or item.get("type")
