@@ -60,13 +60,19 @@ def generate_markdown(report: ReviewReport) -> str:
     return md
 
 
-def save_markdown(markdown: str, filename: str = "review.md") -> Path:
+def save_markdown(
+    markdown: str,
+    filename: str = "review.md",
+    output_dir: Path | None = None
+) -> Path:
     """
     Save markdown report to disk.
     """
 
-    output_dir = Path(REPORT_FOLDER)
-    output_dir.mkdir(exist_ok=True)
+    if output_dir is None:
+        output_dir = Path(REPORT_FOLDER)
+
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     output_file = output_dir / filename
 

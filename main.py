@@ -11,6 +11,7 @@
 import os
 import sys
 from pathlib import Path
+from utils.report_manager import create_scan_directory
 from utils.file_reader import read_code_file
 from utils.folder_reader import get_source_files
 
@@ -88,6 +89,7 @@ def main():
             return
 
         print(f"[+] Found {len(files)} file(s).\n")
+        scan_directory = create_scan_directory("reports")
 
         # Scan every file
         for file in files:
@@ -110,7 +112,8 @@ def main():
             report_name = Path(filename).stem + ".md"
             save_markdown(
                 markdown=markdown,
-                filename=report_name
+                filename=report_name,
+                output_dir=scan_directory
             )
 
             print(f"[✓] Completed: {filename}\n")
