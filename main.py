@@ -16,7 +16,10 @@ from utils.file_reader import read_code_file
 from utils.folder_reader import get_source_files
 
 from ai.reviewer import review_code
-
+from reports.summary import (
+    generate_summary,
+    save_summary
+)
 from reports.markdown import (
     generate_markdown,
     save_markdown
@@ -90,6 +93,7 @@ def main():
 
         print(f"[+] Found {len(files)} file(s).\n")
         scan_directory = create_scan_directory("reports")
+        scan_reports = []
 
         # Scan every file
         for file in files:
@@ -104,6 +108,12 @@ def main():
                 filename=filename,
                 code=code
             )
+            scan_reports.append(
+                (
+                    filename,
+                    report
+                )
+            )
 
             # Generate Markdown
             markdown = generate_markdown(report)
@@ -117,7 +127,11 @@ def main():
             )
 
             print(f"[✓] Completed: {filename}\n")
-
+        summary=generate_summary(scan_reports)
+        save_summary(
+            summary,
+            scan_directory
+        )
         print("===================================")
         print(" Folder Scan Completed")
         print("===================================")
