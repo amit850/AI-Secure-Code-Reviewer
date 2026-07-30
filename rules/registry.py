@@ -1,7 +1,10 @@
 """
 Rule Registry
-
-All enabled rules are registered here.
 """
 
-RULES = []
+from rules.hardcoded_secrets import HardcodedSecretsRule
+
+
+RULES = [
+    HardcodedSecretsRule(),
+]
