@@ -3,7 +3,7 @@
 # ==========================================================
 
 from copy import deepcopy
-
+from utils.security_mapper import map_cwe_to_owasp
 
 # ----------------------------------------------------------
 # Default Finding Template
@@ -118,9 +118,9 @@ def normalize_response(data: dict) -> dict:
             "Unknown"
         )
 
-        finding["owasp"] = item.get(
-            "owasp",
-            "Unknown"
+        finding["owasp"] = map_cwe_to_owasp(
+            finding["cwe"]
+
         )
 
         finding["file"] = item.get(

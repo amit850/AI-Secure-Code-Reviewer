@@ -10,19 +10,18 @@
 
 import os
 import sys
-from pathlib import Path
+
 from utils.report_manager import create_scan_directory
 from utils.file_reader import read_code_file
 from utils.folder_reader import get_source_files
 
 from ai.reviewer import review_code
+
+from reports.manager import generate_reports, generate_scan_reports
+
 from reports.summary import (
     generate_summary,
     save_summary
-)
-from reports.markdown import (
-    generate_markdown,
-    save_markdown
 )
 
 
@@ -66,16 +65,18 @@ def main():
 
         print("[+] Generating report...")
 
-        # Convert report to Markdown
-        markdown = generate_markdown(report)
+        output_dir = create_scan_directory("reports")
 
-        # Save report
-        output = save_markdown(markdown)
+        generate_reports(
+            filename=filename,
+            report=report,
+            output_dir=output_dir,
+        )
 
         print("\n===================================")
         print(" Review Completed Successfully")
         print("===================================")
-        print(f"Report saved to: {output}")
+        print(f"Reports saved to: {output_dir}")
 
     # ------------------------------------------------------
     # CASE 2 : User provided a folder
@@ -92,7 +93,9 @@ def main():
             return
 
         print(f"[+] Found {len(files)} file(s).\n")
+
         scan_directory = create_scan_directory("reports")
+
         scan_reports = []
 
         # Scan every file
@@ -108,6 +111,7 @@ def main():
                 filename=filename,
                 code=code
             )
+
             scan_reports.append(
                 (
                     filename,
@@ -115,23 +119,25 @@ def main():
                 )
             )
 
-            # Generate Markdown
-            markdown = generate_markdown(report)
-
-            # Save report
-            report_name = Path(filename).stem + ".md"
-            save_markdown(
-                markdown=markdown,
-                filename=report_name,
-                output_dir=scan_directory
+            generate_reports(
+                filename=filename,
+                report=report,
+                output_dir=scan_directory,
             )
 
             print(f"[✓] Completed: {filename}\n")
-        summary=generate_summary(scan_reports)
+
+        summary = generate_summary(scan_reports)
+
         save_summary(
             summary,
             scan_directory
         )
+    generate_scan_reports(
+        reports=scan_reports,
+        output_dir=scan_directory
+    )
+
         print("===================================")
         print(" Folder Scan Completed")
         print("===================================")
