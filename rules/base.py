@@ -7,22 +7,18 @@ Every detection rule must inherit from this class.
 from abc import ABC, abstractmethod
 
 
-class Rule(ABC):
+class BaseRule(ABC):
     """
     Abstract base class for all security rules.
     """
 
+    id = ""
+    name = ""
+    description = ""
+
     @abstractmethod
-    def scan(
-        self,
-        file_path: str,
-        source_code: str
-    ) -> list[dict]:
+    def scan(self, filename: str, code: str):
         """
-        Scan the source code.
-
-        Returns:
-            List of findings.
+        Scan source code and return a list of findings.
         """
-
         pass

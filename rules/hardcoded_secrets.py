@@ -1,84 +1,94 @@
 """
-Hardcoded Secret Detection Rule
+Hardcoded Secrets Detection Rule
+
+Detects:
+- Passwords
+- API Keys
+- Tokens
+- Secrets
+- Client Secrets
 """
 
 import re
 
-from rules.base import Rule
+from rules.base import BaseRule
+from rules.utils import (
+    create_finding,
+    find_pattern_matches,
+    get_line_number,
+)
 
 
-class HardcodedSecretsRule(Rule):
+class HardcodedSecretsRule(BaseRule):
     """
-    Detects hardcoded secrets such as:
-
-    API_KEY
-    SECRET
-    PASSWORD
-    TOKEN
-    PRIVATE_KEY
+    Detect hardcoded secrets in source code.
     """
 
-    SECRET_PATTERNS = [
+    id = "SCR001"
+    name = "Hardcoded Secrets"
+    description = "Detects hardcoded credentials and secrets."
 
-        r'(?i)(api[_-]?key)\s*=\s*["\'].*?["\']',
-        r'(?i)(secret)\s*=\s*["\'].*?["\']',
-        r'(?i)(password)\s*=\s*["\'].*?["\']',
-        r'(?i)(token)\s*=\s*["\'].*?["\']',
-        r'(?i)(private[_-]?key)\s*=\s*["\'].*?["\']',
+    CWE = "CWE-798"
+    OWASP = "A02:2021"
 
-    ]
+    SEVERITY = "High"
+    CONFIDENCE = "High"
+
+    PATTERN = (
+        r"(password|passwd|pwd|secret|api[_-]?key|apikey|"
+        r"access[_-]?token|token|client[_-]?secret|"
+        r"aws[_-]?secret|private[_-]?key)"
+        r"\s*[:=]\s*['\"][^'\"]+['\"]"
+    )
 
     def scan(
         self,
-        file_path: str,
-        source_code: str
-    ) -> list[dict]:
+        filename: str,
+        code: str,
+    ):
 
         findings = []
 
-        lines = source_code.splitlines()
+        matches = find_pattern_matches(
+            self.PATTERN,
+            code,
+        )
 
-        for line_number, line in enumerate(lines, start=1):
+        for match in matches:
 
-            for pattern in self.SECRET_PATTERNS:
+            evidence = match.group()
 
-                if re.search(pattern, line):
+            line = get_line_number(
+                code,
+                match.start(),
+            )
 
-                    findings.append({
+            findings.append(
+                create_finding(
+                    title=self.name,
+                    severity=self.SEVERITY,
+                    confidence=self.CONFIDENCE,
+                    cwe=self.CWE,
+                    owasp=self.OWASP,
+                    filename=filename,
+                    line=line,
+                    description=(
+                        "Hardcoded credentials detected. "
+                        "Secrets should never be stored "
+                        "directly in source code."
+                    ),
+                    evidence=evidence,
+                    recommendation=(
+                        "Store secrets in environment variables "
+                        "or a secure secret manager."
+                    ),
+                    secure_code_example="""
+import os
 
-                        "title": "Hardcoded Secret",
-
-                        "severity": "High",
-
-                        "confidence": "Certain",
-
-                        "cwe": "CWE-798",
-
-                        "owasp": "Unknown",
-
-                        "file": file_path,
-
-                        "line": line_number,
-
-                        "description": (
-                            "Hardcoded credentials or secrets "
-                            "were found in source code."
-                        ),
-
-                        "evidence": line.strip(),
-
-                        "recommendation": (
-                            "Store secrets in environment variables "
-                            "or a secure secrets manager."
-                        ),
-
-                        "secure_code_example": (
-                            'import os\n'
-                            'API_KEY = os.getenv("API_KEY")'
-                        )
-
-                    })
-
-                    break
+password = os.getenv("DB_PASSWORD")
+api_key = os.getenv("API_KEY")
+""",
+                )
+            )
 
         return findings
