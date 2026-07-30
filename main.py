@@ -17,11 +17,14 @@ from utils.folder_reader import get_source_files
 
 from ai.reviewer import review_code
 
-from reports.manager import generate_reports, generate_scan_reports
+from reports.manager import (
+    generate_reports,
+    generate_scan_reports,
+)
 
 from reports.summary import (
     generate_summary,
-    save_summary
+    save_summary,
 )
 
 
@@ -37,7 +40,6 @@ def main():
     # python main.py test_cases/sqli.py
     # ------------------------------------------------------
     if len(sys.argv) != 2:
-
         print("Usage:")
         print("python main.py <source_code_file_or_folder>")
         return
@@ -52,15 +54,13 @@ def main():
 
         print("[+] Reading source code...")
 
-        # Read file content
         filename, code = read_code_file(path)
 
         print("[+] Reviewing code with AI...")
 
-        # Send code to AI
         report = review_code(
             filename=filename,
-            code=code
+            code=code,
         )
 
         print("[+] Generating report...")
@@ -85,7 +85,6 @@ def main():
 
         print("[+] Searching source files...")
 
-        # Get all supported files
         files = get_source_files(path)
 
         if not files:
@@ -103,19 +102,17 @@ def main():
 
             print(f"[+] Scanning: {file}")
 
-            # Read current file
             filename, code = read_code_file(file)
 
-            # AI Review
             report = review_code(
                 filename=filename,
-                code=code
+                code=code,
             )
 
             scan_reports.append(
                 (
                     filename,
-                    report
+                    report,
                 )
             )
 
@@ -127,26 +124,33 @@ def main():
 
             print(f"[✓] Completed: {filename}\n")
 
+        # --------------------------------------------------
+        # Generate Summary Report
+        # --------------------------------------------------
         summary = generate_summary(scan_reports)
 
         save_summary(
             summary,
-            scan_directory
+            scan_directory,
         )
-    generate_scan_reports(
-        reports=scan_reports,
-        output_dir=scan_directory
-    )
+
+        # --------------------------------------------------
+        # Generate SARIF Report
+        # --------------------------------------------------
+        generate_scan_reports(
+            reports=scan_reports,
+            output_dir=scan_directory,
+        )
 
         print("===================================")
         print(" Folder Scan Completed")
         print("===================================")
+        print(f"Reports saved to: {scan_directory}")
 
     # ------------------------------------------------------
     # CASE 3 : Invalid path
     # ------------------------------------------------------
     else:
-
         print("Invalid file or folder path.")
 
 

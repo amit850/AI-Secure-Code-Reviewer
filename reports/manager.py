@@ -13,6 +13,7 @@ from reports.markdown import (
     generate_markdown,
     save_markdown,
 )
+
 from reports.sarif import (
     generate_sarif,
     save_sarif,
@@ -25,8 +26,7 @@ def generate_reports(
     output_dir: Path,
 ) -> None:
     """
-    Generate and save all reports
-    for a single source file.
+    Generate reports for a single source file.
     """
 
     # -------------------------
@@ -43,14 +43,8 @@ def generate_reports(
         output_dir=output_dir,
     )
 
-    # -------------------------
-    # Future Reports
-    # -------------------------
 
-    # save_json(...)
-    # save_html(...)
-    # save_sarif(...)
-    def generate_scan_reports(
+def generate_scan_reports(
     reports: list[tuple[str, ReviewReport]],
     output_dir: Path,
 ) -> None:
@@ -59,7 +53,7 @@ def generate_reports(
     """
 
     # -------------------------
-    # SARIF
+    # SARIF Report
     # -------------------------
 
     sarif = generate_sarif(reports)
@@ -70,7 +64,7 @@ def generate_reports(
     )
 
     # -------------------------
-    # Future
+    # Future Reports
     # -------------------------
 
     # save_json(...)
