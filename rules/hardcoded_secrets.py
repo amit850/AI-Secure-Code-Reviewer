@@ -1,66 +1,25 @@
-"""
-Hardcoded Secret Detection Rule
-"""
-
-from rules.base import BaseRule
-from rules.utils import (
-    create_finding,
-    find_pattern_matches,
-    get_line_number,
-)
+from rules.base_regex_rule import BaseRegexRule
 
 
-class HardcodedSecretsRule(BaseRule):
+class HardcodedSecretsRule(BaseRegexRule):
 
     id = "SCR001"
-    name = "Hardcoded Secrets"
-    description = "Detect hardcoded secrets."
 
-    PATTERN = (
-        r"(password|passwd|pwd|secret|"
-        r"api[_-]?key|apikey|"
-        r"token|access[_-]?token|"
-        r"client[_-]?secret)"
-        r"\s*[:=]\s*[\"'][^\"']+[\"']"
-    )
-
-    def scan(
-        self,
-        filename: str,
-        code: str,
-    ):
-
-        findings = []
-
-        for match in find_pattern_matches(
-            self.PATTERN,
-            code,
-        ):
-
-            findings.append(
-                create_finding(
-                    title=self.name,
-                    severity="High",
-                    confidence="High",
-                    cwe="CWE-798",
-                    owasp="A02:2021",
-                    filename=filename,
-                    line=get_line_number(
-                        code,
-                        match.start(),
-                    ),
-                    description="Hardcoded secret detected.",
-                    evidence=match.group(),
-                    recommendation=(
-                        "Store secrets in environment variables "
-                        "or a secret manager."
-                    ),
-                    secure_code_example="""
+    metadata = {
+        "title": "Hardcoded Secrets",
+        "severity": "High",
+        "confidence": "High",
+        "cwe": "CWE-798",
+        "owasp": "A02:2021",
+        "description": "Hardcoded secret detected.",
+        "recommendation": "Store secrets in environment variables or a secret manager.",
+        "secure_code": """
 import os
 
 password = os.getenv("DB_PASSWORD")
-""",
-                )
-            )
+"""
+    }
 
-        return findings
+    patterns = [
+        r"(password|passwd|pwd|secret|api[_-]?key|apikey|token|access[_-]?token|client[_-]?secret)\s*[:=]\s*[\"'][^\"']+[\"']"
+    ]
