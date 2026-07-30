@@ -16,7 +16,7 @@ class XSSRule(BaseRegexRule):
         "secure_code": """
 from markupsafe import escape
 
-name = escape(user_input)
+safe = escape(user_input)
 """
     }
 

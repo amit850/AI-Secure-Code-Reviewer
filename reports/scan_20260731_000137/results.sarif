@@ -1,0 +1,120 @@
+{
+    "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+    "version": "2.1.0",
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "AI Secure Code Reviewer",
+                    "version": "2.5",
+                    "rules": [
+                        {
+                            "id": "CWE-78",
+                            "name": "Command Injection",
+                            "shortDescription": {
+                                "text": "Command Injection"
+                            },
+                            "help": {
+                                "text": "Possible Command Injection detected."
+                            },
+                            "properties": {
+                                "owasp": "A03:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+                            "name": "Command Injection",
+                            "shortDescription": {
+                                "text": "Command Injection"
+                            },
+                            "help": {
+                                "text": "The application is vulnerable to command injection because it directly executes user input using `os.system(cmd)`. An attacker can provide malicious input that alters the intended command, leading to arbitrary code execution."
+                            },
+                            "properties": {
+                                "owasp": "OWASP A05:2025 - Injection",
+                                "confidence": "Certain"
+                            }
+                        },
+                        {
+                            "id": "CWE-22",
+                            "name": "Path Traversal",
+                            "shortDescription": {
+                                "text": "Path Traversal"
+                            },
+                            "help": {
+                                "text": "Possible Path Traversal detected."
+                            },
+                            "properties": {
+                                "owasp": "A01:2021",
+                                "confidence": "High"
+                            }
+                        }
+                    ]
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "CWE-78",
+                    "ruleIndex": 0,
+                    "level": "error",
+                    "message": {
+                        "text": "Possible Command Injection detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "cmdin.py"
+                                },
+                                "region": {
+                                    "startLine": 5
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+                    "ruleIndex": 1,
+                    "level": "error",
+                    "message": {
+                        "text": "The application is vulnerable to command injection because it directly executes user input using `os.system(cmd)`. An attacker can provide malicious input that alters the intended command, leading to arbitrary code execution."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "cmdin.py"
+                                },
+                                "region": {
+                                    "startLine": 4
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-22",
+                    "ruleIndex": 2,
+                    "level": "error",
+                    "message": {
+                        "text": "Possible Path Traversal detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "pathtraversal.py"
+                                },
+                                "region": {
+                                    "startLine": 3
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

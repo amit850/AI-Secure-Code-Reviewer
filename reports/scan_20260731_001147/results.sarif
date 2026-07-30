@@ -1,0 +1,554 @@
+{
+    "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+    "version": "2.1.0",
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "AI Secure Code Reviewer",
+                    "version": "2.5",
+                    "rules": [
+                        {
+                            "id": "CWE-78",
+                            "name": "Command Injection",
+                            "shortDescription": {
+                                "text": "Command Injection"
+                            },
+                            "help": {
+                                "text": "Possible Command Injection detected."
+                            },
+                            "properties": {
+                                "owasp": "A03:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+                            "name": "Command Injection",
+                            "shortDescription": {
+                                "text": "Command Injection"
+                            },
+                            "help": {
+                                "text": "The application is vulnerable to command injection because it directly executes user input using `os.system(cmd)`. An attacker can provide malicious input that alters the intended command, leading to arbitrary code execution."
+                            },
+                            "properties": {
+                                "owasp": "OWASP A05:2025 - Injection",
+                                "confidence": "Certain"
+                            }
+                        },
+                        {
+                            "id": "CWE-434",
+                            "name": "Insecure File Upload",
+                            "shortDescription": {
+                                "text": "Insecure File Upload"
+                            },
+                            "help": {
+                                "text": "Possible insecure file upload detected."
+                            },
+                            "properties": {
+                                "owasp": "A05:2021",
+                                "confidence": "Medium"
+                            }
+                        },
+                        {
+                            "id": "CWE-347",
+                            "name": "JWT Security Issue",
+                            "shortDescription": {
+                                "text": "JWT Security Issue"
+                            },
+                            "help": {
+                                "text": "Potential insecure JWT usage detected."
+                            },
+                            "properties": {
+                                "owasp": "A07:2021",
+                                "confidence": "Medium"
+                            }
+                        },
+                        {
+                            "id": "CWE-327: Use of a Broken or Risky Algorithm",
+                            "name": "Insecure JWT Decoding",
+                            "shortDescription": {
+                                "text": "Insecure JWT Decoding"
+                            },
+                            "help": {
+                                "text": "The JWT is being decoded without verifying the signature, which makes it vulnerable to replay attacks."
+                            },
+                            "properties": {
+                                "owasp": "OWASP A04:2025 - Cryptographic Failures",
+                                "confidence": "Certain"
+                            }
+                        },
+                        {
+                            "id": "CWE-601",
+                            "name": "Open Redirect",
+                            "shortDescription": {
+                                "text": "Open Redirect"
+                            },
+                            "help": {
+                                "text": "Possible Open Redirect detected."
+                            },
+                            "properties": {
+                                "owasp": "A01:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+                            "name": "Open Redirect",
+                            "shortDescription": {
+                                "text": "Open Redirect"
+                            },
+                            "help": {
+                                "text": "The application redirects the user to a URL provided in the 'next' query parameter without validation, which can lead to an open redirect vulnerability."
+                            },
+                            "properties": {
+                                "owasp": "OWASP A01:2025 - Broken Access Control",
+                                "confidence": "Certain"
+                            }
+                        },
+                        {
+                            "id": "CWE-22",
+                            "name": "Path Traversal",
+                            "shortDescription": {
+                                "text": "Path Traversal"
+                            },
+                            "help": {
+                                "text": "Possible Path Traversal detected."
+                            },
+                            "properties": {
+                                "owasp": "A01:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-918",
+                            "name": "Server-Side Request Forgery (SSRF)",
+                            "shortDescription": {
+                                "text": "Server-Side Request Forgery (SSRF)"
+                            },
+                            "help": {
+                                "text": "Possible Server-Side Request Forgery detected."
+                            },
+                            "properties": {
+                                "owasp": "A10:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-798",
+                            "name": "Hardcoded Secrets",
+                            "shortDescription": {
+                                "text": "Hardcoded Secrets"
+                            },
+                            "help": {
+                                "text": "Hardcoded secret detected."
+                            },
+                            "properties": {
+                                "owasp": "A02:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-328",
+                            "name": "Weak Cryptographic Hash",
+                            "shortDescription": {
+                                "text": "Weak Cryptographic Hash"
+                            },
+                            "help": {
+                                "text": "Weak cryptographic hash algorithm detected."
+                            },
+                            "properties": {
+                                "owasp": "A02:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+                            "name": "Use of MD5 for Password Hashing",
+                            "shortDescription": {
+                                "text": "Use of MD5 for Password Hashing"
+                            },
+                            "help": {
+                                "text": "MD5 is considered cryptographically broken and unsuitable for further use in security-sensitive applications."
+                            },
+                            "properties": {
+                                "owasp": "OWASP A04:2025 - Cryptographic Failures",
+                                "confidence": "Certain"
+                            }
+                        },
+                        {
+                            "id": "CWE-338",
+                            "name": "Weak Random Number Generator",
+                            "shortDescription": {
+                                "text": "Weak Random Number Generator"
+                            },
+                            "help": {
+                                "text": "Weak random number generator detected."
+                            },
+                            "properties": {
+                                "owasp": "A02:2021",
+                                "confidence": "High"
+                            }
+                        },
+                        {
+                            "id": "CWE-611",
+                            "name": "XML External Entity (XXE) Injection",
+                            "shortDescription": {
+                                "text": "XML External Entity (XXE) Injection"
+                            },
+                            "help": {
+                                "text": "The code is vulnerable to XML External Entity (XXE) injection because it does not disable external entity processing when parsing the XML file."
+                            },
+                            "properties": {
+                                "owasp": "OWASP A02:2025 - Security Misconfiguration",
+                                "confidence": "Certain"
+                            }
+                        }
+                    ]
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "CWE-78",
+                    "ruleIndex": 0,
+                    "level": "error",
+                    "message": {
+                        "text": "Possible Command Injection detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "cmdin.py"
+                                },
+                                "region": {
+                                    "startLine": 5
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+                    "ruleIndex": 1,
+                    "level": "error",
+                    "message": {
+                        "text": "The application is vulnerable to command injection because it directly executes user input using `os.system(cmd)`. An attacker can provide malicious input that alters the intended command, leading to arbitrary code execution."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "cmdin.py"
+                                },
+                                "region": {
+                                    "startLine": 4
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-434",
+                    "ruleIndex": 2,
+                    "level": "error",
+                    "message": {
+                        "text": "Possible insecure file upload detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file_upload.py"
+                                },
+                                "region": {
+                                    "startLine": 3
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-434",
+                    "ruleIndex": 2,
+                    "level": "error",
+                    "message": {
+                        "text": "Possible insecure file upload detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file_upload.py"
+                                },
+                                "region": {
+                                    "startLine": 5
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-347",
+                    "ruleIndex": 3,
+                    "level": "error",
+                    "message": {
+                        "text": "Potential insecure JWT usage detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "jwt.py"
+                                },
+                                "region": {
+                                    "startLine": 5
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-327: Use of a Broken or Risky Algorithm",
+                    "ruleIndex": 4,
+                    "level": "error",
+                    "message": {
+                        "text": "The JWT is being decoded without verifying the signature, which makes it vulnerable to replay attacks."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "jwt.py"
+                                },
+                                "region": {
+                                    "startLine": 4
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-601",
+                    "ruleIndex": 5,
+                    "level": "warning",
+                    "message": {
+                        "text": "Possible Open Redirect detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "open_redirect.py"
+                                },
+                                "region": {
+                                    "startLine": 5
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+                    "ruleIndex": 6,
+                    "level": "error",
+                    "message": {
+                        "text": "The application redirects the user to a URL provided in the 'next' query parameter without validation, which can lead to an open redirect vulnerability."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "open_redirect.py"
+                                },
+                                "region": {
+                                    "startLine": 4
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-22",
+                    "ruleIndex": 7,
+                    "level": "error",
+                    "message": {
+                        "text": "Possible Path Traversal detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "pathtraversal.py"
+                                },
+                                "region": {
+                                    "startLine": 3
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-918",
+                    "ruleIndex": 8,
+                    "level": "error",
+                    "message": {
+                        "text": "Possible Server-Side Request Forgery detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "ssrf.py"
+                                },
+                                "region": {
+                                    "startLine": 5
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-918",
+                    "ruleIndex": 8,
+                    "level": "error",
+                    "message": {
+                        "text": "The application is vulnerable to Server-Side Request Forgery (SSRF) because it directly uses user-provided input (`url`) in an HTTP request without proper validation or sanitization."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "ssrf.py"
+                                },
+                                "region": {
+                                    "startLine": 4
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-798",
+                    "ruleIndex": 9,
+                    "level": "error",
+                    "message": {
+                        "text": "Hardcoded secret detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "weak_hashes.py"
+                                },
+                                "region": {
+                                    "startLine": 3
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-328",
+                    "ruleIndex": 10,
+                    "level": "warning",
+                    "message": {
+                        "text": "Weak cryptographic hash algorithm detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "weak_hashes.py"
+                                },
+                                "region": {
+                                    "startLine": 5
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+                    "ruleIndex": 11,
+                    "level": "error",
+                    "message": {
+                        "text": "MD5 is considered cryptographically broken and unsuitable for further use in security-sensitive applications."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "weak_hashes.py"
+                                },
+                                "region": {
+                                    "startLine": 4
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-338",
+                    "ruleIndex": 12,
+                    "level": "warning",
+                    "message": {
+                        "text": "Weak random number generator detected."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "week_random.py"
+                                },
+                                "region": {
+                                    "startLine": 3
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+                    "ruleIndex": 11,
+                    "level": "warning",
+                    "message": {
+                        "text": "The use of `random.randint` for generating OTPs is not secure. The `random` module in Python's standard library is not suitable for cryptographic purposes."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "week_random.py"
+                                },
+                                "region": {
+                                    "startLine": 0
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "CWE-611",
+                    "ruleIndex": 13,
+                    "level": "error",
+                    "message": {
+                        "text": "The code is vulnerable to XML External Entity (XXE) injection because it does not disable external entity processing when parsing the XML file."
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "xxe.py"
+                                },
+                                "region": {
+                                    "startLine": 3
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

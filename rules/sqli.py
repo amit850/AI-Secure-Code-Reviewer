@@ -26,10 +26,8 @@ cursor.execute(
         r"INSERT.*\+",
         r"UPDATE.*\+",
         r"DELETE.*\+",
-
         r'f".*SELECT.*{.*}"',
         r"f'.*SELECT.*{.*}'",
-
         r"SELECT.*%s.*%",
         r"SELECT.*format\(",
     ]
