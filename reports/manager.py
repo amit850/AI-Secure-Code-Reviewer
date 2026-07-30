@@ -14,10 +14,17 @@ from reports.markdown import (
     save_markdown,
 )
 
+from reports.json import (
+    save_json,
+    save_scan_json,
+)
+
 from reports.sarif import (
     generate_sarif,
     save_sarif,
 )
+
+from reports.html import generate_html_report
 
 
 def generate_reports(
@@ -25,13 +32,6 @@ def generate_reports(
     report: ReviewReport,
     output_dir: Path,
 ) -> None:
-    """
-    Generate reports for a single source file.
-    """
-
-    # -------------------------
-    # Markdown Report
-    # -------------------------
 
     markdown = generate_markdown(report)
 
@@ -42,6 +42,15 @@ def generate_reports(
         filename=report_name,
         output_dir=output_dir,
     )
+
+    json_name = Path(filename).stem + ".json"
+
+    save_json(
+        report=report,
+        filename=json_name,
+        output_dir=output_dir,
+    )
+    
 
 
 def generate_scan_reports(
@@ -64,8 +73,25 @@ def generate_scan_reports(
     )
 
     # -------------------------
+    # HTML Report
+    # -------------------------
+
+    findings = []
+
+    for _, report in reports:
+        findings.extend(report.findings)
+
+    generate_html_report(
+        findings=findings,
+        output_dir=output_dir,
+    )
+    save_scan_json(
+        reports=reports,
+        output_dir=output_dir,
+    )
+
+    # -------------------------
     # Future Reports
     # -------------------------
 
     # save_json(...)
-    # save_html(...)

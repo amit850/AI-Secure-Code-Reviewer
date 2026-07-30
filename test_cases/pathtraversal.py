@@ -1,3 +1,0 @@
-filename = input()
-
-open(filename)

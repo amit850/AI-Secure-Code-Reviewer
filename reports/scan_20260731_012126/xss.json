@@ -1,0 +1,25 @@
+{
+    "summary": {
+        "total_findings": 1,
+        "critical": 0,
+        "high": 1,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+    },
+    "findings": [
+        {
+            "title": "Cross-Site Scripting (XSS)",
+            "severity": "High",
+            "confidence": "Certain",
+            "cwe": "CWE-79",
+            "owasp": "OWASP A05:2025 - Injection",
+            "file": "xss.py",
+            "line": 8,
+            "description": "The application is vulnerable to Cross-Site Scripting (XSS) because it directly includes user input (`name`) in the HTML response without proper sanitization or escaping.",
+            "evidence": "<h1>",
+            "recommendation": "",
+            "secure_code_example": ""
+        }
+    ]
+}
