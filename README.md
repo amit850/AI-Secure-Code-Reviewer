@@ -2,6 +2,21 @@
 
 AI Secure Code Reviewer is an AI-powered Static Application Security Testing (SAST) tool that reviews source code using Large Language Models (LLMs) and detects security vulnerabilities based on OWASP Top 10, CWE, and secure coding best practices.
 
+# AI Secure Code Reviewer
+
+AI-powered Static Application Security Testing (SAST) tool using Ollama LLM and a custom rule engine.
+
+## Features
+
+- AI Code Review
+- Rule-Based Detection
+- OWASP Top 10
+- CWE Mapping
+- HTML Reports
+- JSON Reports
+- Markdown Reports
+- SARIF Export
+
 ---
 
 # ✨ Features
@@ -19,6 +34,9 @@ AI Secure Code Reviewer is an AI-powered Static Application Security Testing (SA
 - SARIF Export
 - Ollama Local LLM Support
 - Pydantic Validation
+
+
+
 
 ---
 
