@@ -1,0 +1,4 @@
+ollama>=0.6.0
+pydantic>=2.0
+markupsafe>=2.1
+defusedxml>=0.7
