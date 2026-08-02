@@ -19,7 +19,7 @@ LLM_OPTIONS = {
 # Output Configuration
 # -------------------------
 
-REPORT_FOLDER = "reports"
+REPORT_FOLDER = "scan_results"
 
 # -------------------------
 # Supported Languages

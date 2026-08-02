@@ -16,8 +16,7 @@ env/
 .env
 
 # Reports
-reports/*.md
-
+scan_results/
 # VS Code
 .vscode/
 
