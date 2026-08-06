@@ -45,6 +45,14 @@ jobs:
           scan-ref: "."
           format: "sarif"
           output: "scan_results/trivy-results.sarif"
+          
+      - name: Run Bandit SAST
+        run: |
+          mkdir -p scan_results
+          python -m bandit \
+            -r ai rules utils reports schemas \
+            -f json \
+            -o scan_results/bandit.json
 
       - name: Upload Trivy SARIF to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
