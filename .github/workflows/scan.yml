@@ -41,6 +41,11 @@ jobs:
           scan-ref: "."
           format: "sarif"
           output: "scan_results/trivy-results.sarif"
+          
+       - name: Upload Trivy SARIF to GitHub Security
+         uses: github/codeql-action/upload-sarif@v3
+         with:
+           sarif_file: scan_results/trivy-results.sarif
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
