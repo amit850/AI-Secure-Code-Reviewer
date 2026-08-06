@@ -30,9 +30,16 @@ jobs:
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
+      - name: Run Trivy Filesystem Scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "scan_results/trivy-results.sarif"
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
         with:
           name: security-reports
-          path: reports/
+          path: scan_results/
