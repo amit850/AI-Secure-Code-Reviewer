@@ -54,7 +54,7 @@ jobs:
             -f json \
             -o scan_results/bandit.json
       - name: Install Semgrep
-          run: pip install semgrep
+        run: pip install semgrep
       
       - name: Run semgrep
           run: |
